@@ -8,6 +8,7 @@ defmodule Community.User do
 
   schema "users" do
     field :username, :string
+    belongs_to :account, Community.Account
   end
 
   def changeset(user, args) do
@@ -21,9 +22,13 @@ defmodule Community.User do
     Repo.all(User)
   end
 
-  def create_user(args \\ %{}) do
-    %User{}
-    |> User.changeset(args)
+  def create_user(account, username) do
+    id = account |> elem(1) |> Map.get(:id)
+
+    %User{
+      username: username,
+      account_id: id
+    }
     |> Repo.insert()
   end
 end

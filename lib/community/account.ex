@@ -7,7 +7,7 @@ defmodule Community.Account do
 
   use Ecto.Schema
 
-  schema "account" do
+  schema "accounts" do
     field :email, :string
     field :password, :string
   end

@@ -5,7 +5,9 @@ defmodule CommunityWeb.Resolvers.UserResolver do
     {:ok, User.list_users()}
   end
 
-  def create_user(__root, args, __info) do
-    User.create_user(args)
+  def create_user(account, args) do
+    IO.puts("KURCINADOTOKIJA")
+    IO.inspect(account)
+    User.create_user(account, args)
   end
 end

@@ -47,9 +47,10 @@ defmodule CommunityWeb.Schema do
     end
 
     @desc "Create new Account"
-    field :create_account, :user do
+    field :create_account, :account do
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))
+      arg(:username, non_null(:string))
       resolve(&AccountResolver.create_account/3)
     end
 
@@ -57,7 +58,7 @@ defmodule CommunityWeb.Schema do
     field :create_user, :user do
       arg(:username, non_null(:string))
 
-      resolve(&UserResolver.create_user/3)
+      resolve(&UserResolver.create_user/2)
     end
   end
 end
