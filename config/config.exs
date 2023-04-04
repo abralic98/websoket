@@ -12,7 +12,7 @@ config :community,
 
 # Configures the endpoint
 config :community, CommunityWeb.Endpoint,
-  url: [host: "116.203.201.51" || "localhost"],
+  url: [host: "localhost"],
   render_errors: [
     formats: [json: CommunityWeb.ErrorJSON],
     layout: false
