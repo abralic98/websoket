@@ -16,5 +16,6 @@ RUN mix local.hex --force && \
 RUN mix compile
 
 # Start the application
-CMD ["mix", "phx.server" ]
 EXPOSE 4000
+RUN mix ecto.migrate 
+CMD ["mix", "phx.server"]
