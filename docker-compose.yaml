@@ -1,25 +1,27 @@
-version: '3.9'
+version: '3.1'
+
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
+  api:
+    image: "abralic98/advanced-websockets"
+    env_file:
+      - .env.docker
     depends_on:
-      - db
-    environment:
-      MIX_ENV: dev
-      DATABASE_URL: ecto://postgres:postgres@db/app_dev
+      - postgres
+    ports:
+        - "7005:4000"
     volumes:
-      - .:/app
-  db:
+       - ./log_volume:/app/log:delegated
+    deploy:
+       mode: replicated
+       replicas: 1
+       labels: [APP=KEKOMI_API]
+
+  postgres:
+    environment:
+      - POSTGRES_DB=community_dev
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_HOST_AUTH_METHOD=trust
     image: postgres:14
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: app_dev
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-volumes:
-  postgres_data:
+      - ./pgdata:/var/lib/postgresql/data
