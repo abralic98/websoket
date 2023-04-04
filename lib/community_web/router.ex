@@ -16,6 +16,8 @@ defmodule CommunityWeb.Router do
       schema: CommunityWeb.Schema,
       interface: :simple,
       context: %{pubsub: CommunityWeb.Endpoint}
+
+    forward "/graphql", Absinthe.Plug, schema: CommunityWeb.Schema
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

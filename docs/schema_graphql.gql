@@ -1,0 +1,63 @@
+schema {
+  query: RootQueryType
+  mutation: RootMutationType
+}
+
+type Account {
+  email: String!
+  id: ID!
+  password: String!
+}
+
+type Company {
+  id: ID!
+  name: String
+}
+
+type Link {
+  description: String
+  id: ID!
+  url: String
+}
+
+type Message {
+  id: ID!
+  message: String!
+}
+
+type RootMutationType {
+  """Create new Account"""
+  createAccount(email: String!, password: String!, username: String!): Account
+
+  """Create a new link"""
+  createLink(description: String!, url: String!): Link
+
+  """Create new Message"""
+  createMessage(message: String!, userId: ID!): Message
+
+  """Create new User"""
+  createUser(username: String!): User
+
+  """Delete link"""
+  deleteLink(id: ID!): ID
+}
+
+type RootQueryType {
+  """Get all links"""
+  allLinks: [Link!]!
+
+  """Get all users"""
+  allUsers: [User]
+
+  """Get all companies"""
+  getCompanies: [Company!]!
+
+  """Get all messages"""
+  getMessages: [Company!]!
+}
+
+type User {
+  id: ID!
+  username: String!
+}
+
