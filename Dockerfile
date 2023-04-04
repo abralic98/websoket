@@ -17,5 +17,5 @@ RUN mix compile
 
 # Start the application
 EXPOSE 4000
-RUN mix ecto.migrate 
+ENTRYPOINT ["entrypoint.sh"]
 CMD ["mix", "phx.server"]
