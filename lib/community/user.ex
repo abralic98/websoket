@@ -24,6 +24,7 @@ defmodule Community.User do
 
   def create_user(account, username) do
     id = account |> elem(1) |> Map.get(:id)
+    IO.inspect(account)
 
     %User{
       username: username,

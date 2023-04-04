@@ -6,7 +6,5 @@ defmodule Community.Repo.Migrations.Adduser do
       add :username, :string, null: false
       add :account_id, references(:accounts, on_delete: :nothing), null: false
     end
-
-    create unique_index(:users, [:account_id])
   end
 end
