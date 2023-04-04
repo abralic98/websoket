@@ -2,7 +2,7 @@
 FROM elixir:latest
 
 # Set the working directory in the container
-WORKDIR /root/websocket
+WORKDIR /app
 
 # Copy the application files into the container
 COPY . .
