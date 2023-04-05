@@ -21,9 +21,11 @@ defmodule Community.Message do
   def list_messages do
     query =
       from m in Message,
-        join: u in assoc(m, :user),
+        join: u in User,
+        on: m.user_id == u.id,
         select: %{id: m.id, message: m.message, username: u.username}
 
+    IO.inspect(query)
     Repo.all(query)
   end
 
