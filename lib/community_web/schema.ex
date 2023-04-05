@@ -39,6 +39,13 @@ defmodule CommunityWeb.Schema do
   # MUTACIJE
 
   mutation do
+    @desc "Login"
+    field :login_user, :user do
+      arg(:username, non_null(:string))
+      arg(:password, non_null(:string))
+      resolve(&UserResolver.login_user/3)
+    end
+
     @desc "Create a new link"
     field :create_link, :link do
       arg(:url, non_null(:string))

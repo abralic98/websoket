@@ -54,6 +54,9 @@ type RootQueryType {
 
   """Get all messages"""
   getMessages: [Company!]!
+
+  """Get Current User"""
+  getUser(password: String!, username: String!): Boolean
 }
 
 type User {

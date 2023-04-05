@@ -3,6 +3,7 @@ defmodule Community.User do
   import Ecto.Query, warn: false
   alias Community.Repo
   alias Community.User
+  alias Community.Account
 
   use Ecto.Schema
 
@@ -20,6 +21,24 @@ defmodule Community.User do
   def list_users do
     IO.puts("KURCINa")
     Repo.all(User)
+  end
+
+  def login_user(_kit, args, _kit1) do
+    IO.inspect(args.username)
+    IO.inspect(args.password)
+    username = args.username
+    password = args.password
+
+    query =
+      from u in User,
+        join: a in Account,
+        on: u.username == ^username and a.password == ^password,
+        limit: 1
+
+    case Repo.one(query) do
+      nil -> {:error, :not_found}
+      user -> {:ok, user}
+    end
   end
 
   def create_user(account, username) do
