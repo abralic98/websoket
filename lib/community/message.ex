@@ -18,16 +18,19 @@ defmodule Community.Message do
     |> validate_required([:message])
   end
 
-  def list_messages do
-    query =
-      from m in Message,
-        join: u in User,
-        on: m.user_id == u.id,
-        select: %{id: m.id, message: m.message, username: u.username}
+def list_messages do
+  query =
+    from m in Message,
+      join: u in User,
+      on: m.user_id == u.id
 
-    IO.inspect(query)
-    Repo.all(query)
-  end
+  query =
+    from [m, u] in query,
+    select: %{m | user: u}
+
+  IO.inspect(query)
+  Repo.all(query)
+end
 
   def create_message(args) do
     id = Map.get(args, :user_id) |> String.to_integer()
