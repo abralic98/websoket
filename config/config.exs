@@ -20,6 +20,14 @@ config :community, CommunityWeb.Endpoint,
   pubsub_server: Community.PubSub,
   live_view: [signing_salt: "RUrJ+Qek"]
 
+config :cors_plug,
+  origin: [
+    "http://116.203.201.51:4000/",
+    "http://localhost:3002",
+    "http://localhost:3000"
+  ],
+  methods: ["GET", "POST", "FETCH", "OPTIONS"]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
