@@ -4,11 +4,13 @@ defmodule Community.User do
   alias Community.Repo
   alias Community.User
   alias Community.Account
+  alias Community.Message
 
   use Ecto.Schema
 
   schema "users" do
     field :username, :string
+    has_many :messages, Message
     belongs_to :account, Community.Account
   end
 

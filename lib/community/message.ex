@@ -3,12 +3,13 @@ defmodule Community.Message do
   import Ecto.Query, warn: false
   alias Community.Repo
   alias Community.Message
+  alias Community.User
 
   use Ecto.Schema
 
   schema "messages" do
     field :message, :string
-    belongs_to :user, Community.User
+    belongs_to :user, User
   end
 
   def changeset(user, args) do
@@ -18,7 +19,12 @@ defmodule Community.Message do
   end
 
   def list_messages do
-    Repo.all(Message)
+    query =
+      from m in Message,
+        join: u in assoc(m, :user),
+        select: %{id: m.id, message: m.message, username: u.username}
+
+    Repo.all(query)
   end
 
   def create_message(args) do

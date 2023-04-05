@@ -9,6 +9,6 @@ defmodule Community.Repo.Migrations.Addmessages do
       add :user_id, references(:users, on_delete: :nothing), null: false
     end
 
-    create unique_index(:messages, [:user_id])
+    # create unique_index(:messages, [:user_id])
   end
 end
