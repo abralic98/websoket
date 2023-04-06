@@ -13,6 +13,6 @@ defmodule CommunityWeb.Resolvers.UserResolver do
   def login_user(__root, args, _info) do
     IO.puts("KURCN")
     IO.inspect(args)
-    User.login_user("kita",args, "kita")
+    User.login_user("kita", args, "kita")
   end
 end

@@ -4,12 +4,14 @@ defmodule CommunityWeb.Schema do
   alias CommunityWeb.Resolvers.UserResolver
   alias CommunityWeb.Resolvers.AccountResolver
   alias CommunityWeb.Resolvers.MessageResolver
+  alias CommunityWeb.Resolvers.RoomResolver
 
   import_types(CommunityWeb.Graphql.Types.UserType)
   import_types(CommunityWeb.Graphql.Types.LinkType)
   import_types(CommunityWeb.Graphql.Types.CompanyType)
   import_types(CommunityWeb.Graphql.Types.AccountType)
   import_types(CommunityWeb.Graphql.Types.MessageType)
+  import_types(CommunityWeb.Graphql.Types.RoomType)
 
   # KVERIJI
   query do
@@ -20,7 +22,13 @@ defmodule CommunityWeb.Schema do
 
     @desc "Get all messages"
     field :get_messages, list_of(:message) do
+      arg(:room_id, non_null(:id))
       resolve(&MessageResolver.all_messages/3)
+    end
+
+    @desc "Get all Rooms"
+    field :all_rooms, list_of(:room) do
+      resolve(&RoomResolver.all_rooms/3)
     end
   end
 
@@ -53,7 +61,15 @@ defmodule CommunityWeb.Schema do
     field :create_message, :message do
       arg(:message, non_null(:string))
       arg(:user_id, non_null(:id))
+      arg(:room_id, non_null(:id))
       resolve(&MessageResolver.create_message/2)
+    end
+
+    @desc "Create new Room"
+    field :create_room, :room do
+      arg(:name, non_null(:string))
+      arg(:password, :string)
+      resolve(&RoomResolver.create_room/2)
     end
   end
 end
