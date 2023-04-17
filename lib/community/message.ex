@@ -36,7 +36,6 @@ defmodule Community.Message do
       from [m, u, r] in query,
         select: %{m | user: u, room: r}
 
-    IO.inspect(query)
     Repo.all(query)
   end
 
@@ -44,7 +43,6 @@ defmodule Community.Message do
     userid = Map.get(args, :user_id) |> String.to_integer()
     roomid = Map.get(args, :room_id) |> String.to_integer()
     message = Map.get(args, :message)
-    IO.puts("KURCIN")
 
     %Message{
       message: message,
