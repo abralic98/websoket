@@ -5,6 +5,7 @@ defmodule CommunityWeb.Schema do
   alias CommunityWeb.Resolvers.AccountResolver
   alias CommunityWeb.Resolvers.MessageResolver
   alias CommunityWeb.Resolvers.RoomResolver
+  alias CommunityWeb.Resolvers.ConversationResolver
 
   import_types(CommunityWeb.Graphql.Types.UserType)
   import_types(CommunityWeb.Graphql.Types.LinkType)
@@ -12,6 +13,8 @@ defmodule CommunityWeb.Schema do
   import_types(CommunityWeb.Graphql.Types.AccountType)
   import_types(CommunityWeb.Graphql.Types.MessageType)
   import_types(CommunityWeb.Graphql.Types.RoomType)
+  import_types(CommunityWeb.Graphql.Types.ConversationType)
+  import_types(CommunityWeb.Graphql.Types.ConversationReplyType)
 
   # KVERIJI
   query do
@@ -29,6 +32,12 @@ defmodule CommunityWeb.Schema do
     @desc "Get all Rooms"
     field :all_rooms, list_of(:room) do
       resolve(&RoomResolver.all_rooms/3)
+    end
+
+    @desc "Get User Private Conversations"
+    field :get_conversations_by_user_id, list_of(:conversation) do
+      arg(:user_id, non_null(:id))
+      resolve(&ConversationResolver.list_user_conversations/3)
     end
   end
 
@@ -70,6 +79,14 @@ defmodule CommunityWeb.Schema do
       arg(:name, non_null(:string))
       arg(:password, :string)
       resolve(&RoomResolver.create_room/2)
+    end
+
+
+    @desc "Create new Conversation"
+    field :create_conversation, :conversation do
+      arg(:user_one, non_null(:id))
+      arg(:user_two, non_null(:id))
+      resolve(&ConversationResolver.create_conversation/2)
     end
   end
 end
