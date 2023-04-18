@@ -28,9 +28,13 @@ defmodule Community.Conversation do
         where: c.user_one_id == ^user.user_id or c.user_two_id == ^user.user_id,
         join: r in ConversationReply,
         on: r.conversation_id == c.id and r.user_id == u.id,
-        select: %{c | user_one: u, user_two: u, conversation_replies: r}
+        select: %{c | user_one: u, user_two: u, conversation_replies: %{r | user: u}}
 
-    Repo.all(query)
+    query_with_preload =
+      Ecto.Query.preload(query, [:user_one, :user_two, conversation_replies: :user])
+
+    IO.inspect(Repo.all(query_with_preload))
+    Repo.all(query_with_preload)
   end
 
   def create_conversation(args) do
