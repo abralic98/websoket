@@ -11,6 +11,7 @@ defmodule Community.ConversationReply do
     field :message, :string
     belongs_to :conversation, Conversation
     belongs_to :user, User
+    timestamps()
   end
 
   def changeset(user, args) do

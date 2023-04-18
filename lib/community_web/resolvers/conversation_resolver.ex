@@ -1,5 +1,4 @@
 defmodule CommunityWeb.Resolvers.ConversationResolver do
-
   alias Community.Conversation
 
   def list_user_conversations(_root, args, _info) do
@@ -8,5 +7,9 @@ defmodule CommunityWeb.Resolvers.ConversationResolver do
 
   def create_conversation(args, _priv) do
     Conversation.create_conversation(args)
+  end
+
+  def create_conversation_reply(args, _priv) do
+    Conversation.create_conversation_reply(args)
   end
 end

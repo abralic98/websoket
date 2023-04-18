@@ -81,12 +81,19 @@ defmodule CommunityWeb.Schema do
       resolve(&RoomResolver.create_room/2)
     end
 
-
     @desc "Create new Conversation"
     field :create_conversation, :conversation do
-      arg(:user_one, non_null(:id))
-      arg(:user_two, non_null(:id))
+      arg(:user_one_id, non_null(:id))
+      arg(:user_two_id, non_null(:id))
       resolve(&ConversationResolver.create_conversation/2)
+    end
+
+    @desc "Send private message"
+    field :send_reply, :conversation_reply do
+      arg(:message, non_null(:string))
+      arg(:user_id, non_null(:id))
+      arg(:conversation_id, non_null(:id))
+      resolve(&ConversationResolver.create_conversation_reply/2)
     end
   end
 end

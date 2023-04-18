@@ -11,7 +11,6 @@ defmodule Community.Message do
   schema "messages" do
     field :message, :string
     belongs_to :user, User
-
     belongs_to :room, Room
   end
 
